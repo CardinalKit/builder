@@ -2,6 +2,7 @@
     "name": "cardinalkit-survey-builder",
     "version": "1.0.0",
     "private": true,
+    "homepage": "https://cardinalkit.org/builder",
     "dependencies": {
         "@ckeditor/ckeditor5-react": "^3.0.0",
         "@helsenorge/ckeditor5-build-markdown": "^24.0.0",
@@ -29,7 +30,8 @@
         "test": "react-scripts test",
         "lint": "eslint ./src/**/*.{js,ts,tsx} --quiet --fix",
         "eject": "react-scripts eject",
-        "functions": "netlify dev"
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
@@ -73,6 +75,7 @@
         "eslint-plugin-prettier": "^3.3.1",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0",
+        "gh-pages": "^4.0.0",
         "prettier": "^2.2.1",
         "typescript": "^4.1.3"
     }
