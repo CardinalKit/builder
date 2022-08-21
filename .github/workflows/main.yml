@@ -30,7 +30,9 @@ jobs:
         run: |
           npm ci
           npm run build --if-present
-          npm test      
+          npm test
+        env:
+          CI: ""
       - name: deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
