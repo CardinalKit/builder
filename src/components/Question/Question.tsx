@@ -148,7 +148,8 @@ const Question = (props: QuestionProps): JSX.Element => {
             <div className="question-form">
                 <h2 className="question-type-header">{t(getItemDisplayType(props.item))}</h2>
                 <div className="horizontal">
-                    <FormField>
+                    {/*  <FormField>
+                        Markdown not currently supported 
                         <SwitchBtn
                             label={t('Text formatting')}
                             value={isMarkdownActivated}
@@ -162,13 +163,13 @@ const Question = (props: QuestionProps): JSX.Element => {
                                     // set existing text as markdown value
                                     dispatchUpdateMarkdownLabel(props.item.text || '');
                                 }
-                            }}
-                        />
-                    </FormField>
+                            }} 
+                        /> 
+                    </FormField> */}
                     {canTypeBeRequired(props.item) && (
                         <FormField>
                             <SwitchBtn
-                                label={t('Mandatory')}
+                                label={t('Required')}
                                 value={props.item.required || false}
                                 onChange={() => dispatchUpdateItem(IItemProperty.required, !props.item.required)}
                             />
@@ -226,9 +227,9 @@ const Question = (props: QuestionProps): JSX.Element => {
                 <Accordion title={`${t('Code')} ${codeElements}`}>
                     <Codes linkId={props.item.linkId} itemValidationErrors={props.itemValidationErrors} />
                 </Accordion>
-                <Accordion title={t('Advanced settings')}>
+                {/* disabled  <Accordion title={t('Advanced settings')}>
                     <AdvancedQuestionOptions item={props.item} parentArray={props.parentArray} />
-                </Accordion>
+                </Accordion> */}
             </div>
         </div>
     );

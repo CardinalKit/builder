@@ -64,7 +64,7 @@ const FrontPage = (): JSX.Element => {
     return (
         <>
             {suggestRestore && (
-                <Modal title={t('Restore questionnaire...')} close={onDenyRestoreModal}>
+                <Modal title={t('Restore survey...')} close={onDenyRestoreModal} size={'small'}>
                     <div>
                         <p>{t('It looks like you were working on a survey:')}</p>
                         <div className="key-value">
@@ -94,7 +94,7 @@ const FrontPage = (): JSX.Element => {
                     <div className="align-everything">
                         <SpinnerBox />
                     </div>
-                    <p className="center-text">{t('Loading questionnaire...')}</p>
+                    <p className="center-text">{t('Loading survey...')}</p>
                 </Modal>
             )}
             {isFormBuilderShown ? (

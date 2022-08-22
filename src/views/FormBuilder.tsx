@@ -8,14 +8,18 @@ import FormFiller from '../components/FormFiller/FormFiller';
 import IconBtn from '../components/IconBtn/IconBtn';
 import Navbar from '../components/Navbar/Navbar';
 import QuestionDrawer from '../components/QuestionDrawer/QuestionDrawer';
+import Modal from '../components/Modal/Modal'
 
 import './FormBuilder.css';
 import { ValidationErrors } from '../helpers/orphanValidation';
 import TranslationModal from '../components/Languages/Translation/TranslationModal';
+import MetadataEditor from '../components/Metadata/MetadataEditor';
+import Btn from '../components/Btn/Btn';
 
 const FormBuilder = (): JSX.Element => {
     const { t } = useTranslation();
     const { state, dispatch } = useContext(TreeContext);
+    const { qMetadata } = state;
     const [showFormDetails, setShowFormDetails] = useState(false);
 
     const [showPreview, setShowPreview] = useState(false);
@@ -35,8 +39,8 @@ const FormBuilder = (): JSX.Element => {
                 setValidationErrors={setValidationErrors}
                 translationErrors={translationErrors}
                 setTranslationErrors={setTranslationErrors}
+                toggleFormDetails={toggleFormDetails}
             />
-
             <div className="editor">
                 <AnchorMenu
                     dispatch={dispatch}
@@ -57,22 +61,31 @@ const FormBuilder = (): JSX.Element => {
             </div>
             <div className="page-wrapper">
                 <div className="details-button">
-                    <IconBtn
+                    {/* <IconBtn
                         type="info"
-                        title={t('Questionnaire details')}
+                        title={t('Survey Settings')}
                         color="black"
                         onClick={toggleFormDetails}
                         size="large"
-                    />
+                /> */}
                 </div>
-                <FormDetailsDrawer
+                {(showFormDetails) &&
+                    <Modal size={'large'}
+                        title={'Survey Details'}
+                        close={toggleFormDetails}
+                        bottomCloseText={'Save'}
+                        bottomButtonAlignment={'right-text'}>
+                        <MetadataEditor />
+                    </Modal>
+                }
+                {/*<FormDetailsDrawer
                     setTranslateLang={(language: string) => {
                         setTranslateLang(language);
                         toggleFormDetails();
                     }}
                     closeDrawer={toggleFormDetails}
                     isOpen={showFormDetails}
-                />
+                /> */}
                 <QuestionDrawer validationErrors={validationErrors} />
             </div>
         </>

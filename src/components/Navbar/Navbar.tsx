@@ -19,6 +19,7 @@ type Props = {
     validationErrors: ValidationErrors[];
     translationErrors: ValidationErrors[];
     setTranslationErrors: (errors: ValidationErrors[]) => void;
+    toggleFormDetails: () => void;
 };
 
 enum MenuItem {
@@ -33,6 +34,7 @@ const Navbar = ({
     validationErrors,
     translationErrors,
     setTranslationErrors,
+    toggleFormDetails
 }: Props): JSX.Element => {
     const { i18n, t } = useTranslation();
     const { state, dispatch } = useContext(TreeContext);
@@ -122,20 +124,16 @@ const Navbar = ({
                             {getProfileName()}
                         </p>
                     )}
-                    {/*<Btn title={t('Preview')} onClick={showFormFiller} /> */}
-                    <Btn title={t('View JSON')} onClick={() => callbackAndHide(() => setShowJSONView(!showJSONView))} />
+                    <Btn title={t('Edit Metadata')} onClick={() => toggleFormDetails()} />
+                    <Btn title={t('Preview')} onClick={() => {
+                        // validate the FHIR and then show the JSON
+                        setValidationErrors(
+                            validateOrphanedElements(t, state.qOrder, state.qItems, state.qContained || []),
+                        );
+                        setShowJSONView(!showJSONView);
+                    }} />
                     <Btn title={t('Download')} onClick={() => exportToJsonAndDownload()} />
-                    {/* <div
-                        className="more-menu"
-                        tabIndex={0}
-                        role="button"
-                        aria-label="menu list"
-                        aria-pressed="false"
-                        onClick={() => handleMenuItemClick(MenuItem.more)}
-                        onKeyPress={(e) => e.code === 'Enter' && handleMenuItemClick(MenuItem.more)}
-                    >
-                        <img className="more-menu-icon" src={MoreIcon} alt="more icon" height={25} />
-                    </div> */}
+                    
                 </div>
                 {selectedMenuItem === MenuItem.more && (
                     <div className="menu">
@@ -172,7 +170,7 @@ const Navbar = ({
             )}
             {showContained && <PredefinedValueSetModal close={() => setShowContained(!showContained)} />}
             {showImportValueSet && <ImportValueSet close={() => setShowImportValueSet(!showImportValueSet)} />}
-            {showJSONView && <JSONView showJSONView={() => setShowJSONView(!showJSONView)} />}
+            {showJSONView && <JSONView showJSONView={() => setShowJSONView(!showJSONView)} validationErrors={validationErrors} />}
         </>
     );
 };

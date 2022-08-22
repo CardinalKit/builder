@@ -234,7 +234,7 @@ export const getItemDisplayType = (item: QuestionnaireItem): string => {
         isItemControlHighlight(item) ||
         item.type === IQuestionnaireItemType.display
     ) {
-        return 'Information text';
+        return 'Instruction';
     } else if (item.type === IQuestionnaireItemType.string || item.type === IQuestionnaireItemType.text) {
         return 'Text';
     } else if (item.type === IQuestionnaireItemType.group) {
@@ -246,7 +246,7 @@ export const getItemDisplayType = (item: QuestionnaireItem): string => {
     } else if (item.type === IQuestionnaireItemType.attachment) {
         return 'Attachment';
     } else if (item.type === IQuestionnaireItemType.boolean) {
-        return 'Confirmation';
+        return 'Boolean';
     } else if (item.type === IQuestionnaireItemType.choice || item.type === IQuestionnaireItemType.openChoice) {
         return 'Choice';
     } else if (

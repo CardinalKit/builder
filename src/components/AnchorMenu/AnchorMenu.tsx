@@ -18,6 +18,7 @@ import '@nosferatu500/react-sortable-tree/style.css';
 import { isIgnorableItem } from '../../helpers/itemControl';
 import { generateItemButtons } from './ItemButtons/ItemButtons';
 import { canTypeHaveChildren, getInitialItemConfig } from '../../helpers/questionTypeFeatures';
+import cardinalkitSpaceman from '../../images/cardinalkit-spaceman.png';
 
 interface AnchorMenuProps {
     qOrder: OrderItem[];
@@ -150,15 +151,15 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
         <DndProvider backend={HTML5Backend}>
             <div className="questionnaire-overview">
                 <div className="questionnaire-overview__toolbox">
-                    <strong>Question Types</strong>
-                    {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
-                    {createTypeComponent(IQuestionnaireItemType.string, t('Text answer'))}
-                    {createTypeComponent(IQuestionnaireItemType.display, t('Information text'))}
                     {createTypeComponent(IQuestionnaireItemType.boolean, t('Boolean'))}
-                    {createTypeComponent(IQuestionnaireItemType.choice, t('Choice'))}
                     {createTypeComponent(IQuestionnaireItemType.date, t('Date'))}
-                    {createTypeComponent(IQuestionnaireItemType.time, t('Time'))}
+                    {createTypeComponent(IQuestionnaireItemType.decimal, t('Decimal'))}
+                    {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
                     {createTypeComponent(IQuestionnaireItemType.integer, t('Integer'))}
+                    {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
+                    {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
+                    {createTypeComponent(IQuestionnaireItemType.quantity, t('Quantity'))}
+                    {createTypeComponent(IQuestionnaireItemType.string, t('Text'))}
                 </div>
                 <SortableTree
                     className="questionnaire-overview__treeview"
@@ -240,9 +241,10 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                     })}
                 />
                 {props.qOrder.length === 0 && (
-                    <p className="anchor-menu__placeholder">
-                        {t('Drag a question here to start building your survey.')}
-                    </p>
+                    <div className="anchor-menu__placeholder">
+                        <h2 style={{ color: 'black', paddingTop: 10 }}>{t('Drag a question type here to start building your survey!')}</h2>
+                        <img src={cardinalkitSpaceman} width={150} style={{paddingTop: 100}} />
+                    </div>
                 )}
             </div>
         </DndProvider>

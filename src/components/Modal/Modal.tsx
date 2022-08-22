@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Btn from '../Btn/Btn';
 import IconBtn from '../IconBtn/IconBtn';
@@ -11,10 +10,12 @@ type Props = {
     size?: 'large' | 'small';
     id?: string;
     bottomCloseText?: string;
+    bottomButtonAlignment?: 'center-text' | 'right-text';
 };
 
-const Modal = ({ close, children, title, size = 'small', id, bottomCloseText }: Props): JSX.Element => {
+const Modal = ({ close, children, title, size = 'small', id, bottomCloseText, bottomButtonAlignment = 'center-text' }: Props): JSX.Element => {
     const { t } = useTranslation();
+
     return (
         <div className="overlay align-everything">
             <div className={`modal ${size}`} id={id}>
@@ -25,7 +26,7 @@ const Modal = ({ close, children, title, size = 'small', id, bottomCloseText }: 
                 <div className="content">{children}</div>
                 {bottomCloseText && (
                     <div className="modal-btn-bottom">
-                        <div className="center-text">
+                        <div className={bottomButtonAlignment} style={{paddingRight: 10}}>
                             <Btn title={bottomCloseText} type="button" variant="secondary" onClick={close} />
                         </div>
                     </div>

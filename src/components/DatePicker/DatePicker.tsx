@@ -5,7 +5,7 @@ import ReactDatePicker, { registerLocale, setDefaultLocale } from 'react-datepic
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { nb } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
 
 type PickerProps = {
     type?: 'date' | 'time';
@@ -15,8 +15,8 @@ type PickerProps = {
     selected?: Date;
 };
 
-setDefaultLocale('nb');
-registerLocale('nb', nb);
+setDefaultLocale('enUS');
+registerLocale('enUS', enUS);
 
 const DatePicker = ({ type, disabled = true, nowButton, callback, selected }: PickerProps): JSX.Element => {
     const { t } = useTranslation();
@@ -25,17 +25,17 @@ const DatePicker = ({ type, disabled = true, nowButton, callback, selected }: Pi
         <div className="datepicker">
             <ReactDatePicker
                 disabled={disabled}
-                placeholderText={type === 'time' ? '00:00' : t('dd.mm.yyyy')}
+                placeholderText={type === 'time' ? '00:00' : t('mm.dd.yyyy')}
                 selected={selected || startDate}
                 onChange={(date: Date) => {
                     setStartDate(date);
                     callback && callback(date);
                 }}
                 todayButton={nowButton ? t('Today') : undefined}
-                locale="nb"
+                locale="enUS"
                 showTimeSelect={type === 'time'}
                 showTimeSelectOnly={type === 'time'}
-                dateFormat={type === 'date' ? 'dd.MM.yyyy' : 'HH:mm'}
+                dateFormat={type === 'date' ? 'MM.dd.yyyy' : 'HH:mm'}
                 timeCaption={t('Time')}
             />
             <i className={type === 'time' ? 'time-icon' : 'calendar-icon'} aria-label="datepicker" />

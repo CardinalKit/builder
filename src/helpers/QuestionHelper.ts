@@ -15,28 +15,28 @@ export const quantityUnitTypes = [
     },
     {
         system: 'http://unitsofmeasure.org',
-        code: 'cm',
-        display: 'centimeter',
+        code: 'f',
+        display: 'foot',
     },
     {
         system: 'http://unitsofmeasure.org',
-        code: 'kg',
-        display: 'kilo',
+        code: 'in',
+        display: 'inch',
     },
     {
         system: 'http://unitsofmeasure.org',
-        code: 'a',
-        display: 'year',
+        code: 'lb',
+        display: 'pound',
     },
     {
         system: 'http://unitsofmeasure.org',
-        code: 'mo',
-        display: 'month',
+        code: 'g',
+        display: 'gram',
     },
     {
         system: 'http://unitsofmeasure.org',
-        code: 'd',
-        display: 'day',
+        code: 'mg',
+        display: 'milligram',
     },
     {
         system: '',

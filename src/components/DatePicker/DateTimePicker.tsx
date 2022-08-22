@@ -24,7 +24,7 @@ const DateTimePicker = ({ disabled = true, callback, nowButton, selected }: Date
         <div className="datepicker">
             <DatePicker
                 disabled={disabled}
-                placeholderText={t('dd.mm.yyyy 00:00')}
+                placeholderText={t('mm.dd.yyyy 00:00')}
                 selected={selected || startDate}
                 onChange={(date: Date) => {
                     setStartDate(date);
@@ -32,9 +32,9 @@ const DateTimePicker = ({ disabled = true, callback, nowButton, selected }: Date
                 }}
                 todayButton={nowButton ? t('Today') : undefined}
                 timeIntervals={15}
-                locale="nb"
+                locale="enUS"
                 showTimeSelect
-                dateFormat="dd.MM.yyyy HH:mm"
+                dateFormat="MM.dd.yyyy HH:mm"
                 timeCaption={t('Time')}
             />
             <i className="calendar-icon" aria-label="date and time picker" />

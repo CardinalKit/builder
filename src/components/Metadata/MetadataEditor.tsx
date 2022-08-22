@@ -46,153 +46,130 @@ const MetadataEditor = (): JSX.Element => {
 
     return (
         <div id="metadata-editor">
-            <Accordion title={t('Questionnaire details')}>
-                <FormField label={`${t('Title')}:`}>
-                    <input
-                        placeholder={t('Title')}
-                        value={state.qMetadata.title}
-                        onChange={(event) => {
-                            updateMeta(IQuestionnaireMetadataType.title, event.target.value);
-                        }}
-                    />
-                </FormField>
-                <FormField label={t('Description')} isOptional>
-                    <textarea
-                        placeholder={t('Description of questionnaire')}
-                        defaultValue={qMetadata.description || ''}
-                        onBlur={(e) => updateMeta(IQuestionnaireMetadataType.description, e.target.value)}
-                    />
-                </FormField>
-
-                <FormField label={t('Id')}>
-                    <InputField
-                        defaultValue={qMetadata.id}
-                        onChange={(e) => {
-                            setDisplayIdValidationError(!isValidId(e.target.value));
-                        }}
-                        onBlur={(e) => {
-                            if (isValidId(e.target.value)) {
-                                updateMeta(IQuestionnaireMetadataType.id, e.target.value);
-                            }
-                        }}
-                    />
-                    {displayIdValidationError && (
-                        <div className="msg-error" aria-live="polite">
-                            {t('Id must be 1-64 characters and only letters a-z, numbers, - and .')}
-                        </div>
-                    )}
-                </FormField>
-                <FormField label={t('Technical name')}>
-                    <InputField
-                        defaultValue={qMetadata.name}
-                        onChange={(e) => {
-                            setDisplayNameValidationError(!isValidTechnicalName(e.target.value, state.qMetadata.name));
-                        }}
-                        onBlur={(e) => {
-                            if (isValidTechnicalName(e.target.value, qMetadata.name)) {
-                                updateMeta(IQuestionnaireMetadataType.name, e.target.value);
-                            }
-                        }}
-                    />
-                    {displayNameValidationError && (
-                        <div className="msg-error" aria-live="polite">
-                            {t(
-                                'Technical name must start with a captital letter, 1-255 characters and can only contain numbers and characters a-z',
-                            )}
-                        </div>
-                    )}
-                </FormField>
-                <FormField label={t('Version')}>
-                    <InputField
-                        placeholder={t('Version number')}
-                        defaultValue={qMetadata.version}
-                        onBlur={(e) => {
-                            updateMeta(IQuestionnaireMetadataType.version, e.target.value);
-                        }}
-                    />
-                </FormField>
-
-                <FormField label={t('Date')}>
-                    <DatePicker
-                        type="date"
-                        selected={qMetadata.date ? parseISO(qMetadata.date) : undefined}
-                        disabled={false}
-                        nowButton={true}
-                        callback={(date: Date) => {
-                            updateMeta(IQuestionnaireMetadataType.date, formatISO(date));
-                        }}
-                    />
-                </FormField>
-
-                <FormField label={t('Status')}>
-                    <RadioBtn
-                        onChange={(newValue: string) => updateMeta(IQuestionnaireMetadataType.status, newValue)}
-                        checked={qMetadata.status || ''}
-                        options={questionnaireStatusOptions}
-                        name={'status-radio'}
-                    />
-                </FormField>
-                <FormField label={t('Publisher')}>
-                    <InputField
-                        defaultValue={qMetadata.publisher || ''}
-                        onBlur={(e) => updateMeta(IQuestionnaireMetadataType.publisher, e.target.value)}
-                    />
-                </FormField>
-                <FormField label={t('Contact (URL to contact address)')}>
-                    <InputField
-                        defaultValue={
-                            qMetadata.contact && qMetadata.contact.length > 0 ? qMetadata.contact[0].name : ''
+            <FormField label={t('Identifier')}>
+                <InputField
+                    placeholder={t('A unique identifier consisting only of letters, numbers, - and .')}
+                    defaultValue={qMetadata.id}
+                    onChange={(e) => {
+                        setDisplayIdValidationError(!isValidId(e.target.value));
+                    }}
+                    onBlur={(e) => {
+                        if (isValidId(e.target.value)) {
+                            updateMeta(IQuestionnaireMetadataType.id, e.target.value);
                         }
-                        onBlur={(e) => updateMeta(IQuestionnaireMetadataType.contact, [{ name: e.target.value }])}
-                    />
-                </FormField>
-                <FormField label={t('Url')}>
-                    <input
-                        defaultValue={state.qMetadata.url || ''}
-                        placeholder={t('Enter a url..')}
-                        onBlur={(e) => updateMeta(IQuestionnaireMetadataType.url, e.target.value || '')}
-                        pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
-                    />
-                </FormField>
-                <FormField label={t('Purpose')}>
-                    <MarkdownEditor
-                        data={qMetadata.purpose || ''}
-                        onBlur={(purpose: string) => updateMeta(IQuestionnaireMetadataType.purpose, purpose)}
-                    />
-                </FormField>
-                <FormField label={t('Copyright')}>
-                    <MarkdownEditor
-                        data={qMetadata.copyright || ''}
-                        onBlur={(copyright: string) => updateMeta(IQuestionnaireMetadataType.copyright, copyright)}
-                    />
-                </FormField>
-                {/* <FormField label={t('Access control')}>
-                    <RadioBtn
-                        checked={getUseContextSystem()}
-                        onChange={(newValue: string) => {
-                            const updateValue = [
-                                {
-                                    code: {
-                                        system: 'http://hl7.org/fhir/ValueSet/usage-context-type',
-                                        code: 'focus',
-                                        display: 'Clinical Focus',
-                                    },
-                                    valueCodeableConcept: {
-                                        coding: [
-                                            {
-                                                system: newValue,
-                                            },
-                                        ],
-                                    },
-                                },
-                            ];
-                            updateMeta(IQuestionnaireMetadataType.useContext, updateValue);
-                        }}
-                        options={useContextSystem}
-                        name={'useContext-radio'}
-                    />
-                    </FormField> */}
-            </Accordion>
+                    }}
+                />
+                {displayIdValidationError && (
+                    <div className="msg-error" aria-live="polite">
+                        {t('Id must be 1-64 characters and only letters a-z, numbers, - and .')}
+                    </div>
+                )}
+            </FormField>
+
+            <FormField label={`${t('Title')}`}>
+                <input
+                    placeholder={t('A human friendly name for this survey')}
+                    value={state.qMetadata.title}
+                    onChange={(event) => {
+                        updateMeta(IQuestionnaireMetadataType.title, event.target.value);
+                    }}
+                />
+            </FormField>
+
+            <FormField label={t('Name')}>
+                <InputField
+                    placeholder={t('A computer friendly name for this survey')}
+                    defaultValue={qMetadata.name}
+                    onChange={(e) => {
+                        setDisplayNameValidationError(!isValidTechnicalName(e.target.value, state.qMetadata.name));
+                    }}
+                    onBlur={(e) => {
+                        if (isValidTechnicalName(e.target.value, qMetadata.name)) {
+                            updateMeta(IQuestionnaireMetadataType.name, e.target.value);
+                        }
+                    }}
+                />
+                {displayNameValidationError && (
+                    <div className="msg-error" aria-live="polite">
+                        {t(
+                            'Technical name must start with a capital letter, 1-255 characters and can only contain numbers and characters a-z',
+                        )}
+                    </div>
+                )}
+            </FormField>
+
+            <FormField label={t('Description')} isOptional>
+                <textarea
+                    placeholder={t('A description of your survey')}
+                    defaultValue={qMetadata.description || ''}
+                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.description, e.target.value)}
+                />
+            </FormField>
+
+            <FormField label={t('Version')}>
+                <InputField
+                    placeholder={t('Version number')}
+                    defaultValue={qMetadata.version}
+                    onBlur={(e) => {
+                        updateMeta(IQuestionnaireMetadataType.version, e.target.value);
+                    }}
+                />
+            </FormField>
+
+            <FormField label={t('Date')}>
+                <DatePicker
+                    type="date"
+                    selected={qMetadata.date ? parseISO(qMetadata.date) : undefined}
+                    disabled={false}
+                    nowButton={true}
+                    callback={(date: Date) => {
+                        updateMeta(IQuestionnaireMetadataType.date, formatISO(date));
+                    }}
+                />
+            </FormField>
+
+            <FormField label={t('Status')}>
+                <RadioBtn
+                    onChange={(newValue: string) => updateMeta(IQuestionnaireMetadataType.status, newValue)}
+                    checked={qMetadata.status || ''}
+                    options={questionnaireStatusOptions}
+                    name={'status-radio'}
+                />
+            </FormField>
+            <FormField label={t('Publisher')}>
+                <InputField
+                    defaultValue={qMetadata.publisher || ''}
+                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.publisher, e.target.value)}
+                />
+            </FormField>
+            <FormField label={t('Contact (URL to contact address)')} isOptional>
+                <InputField
+                    defaultValue={
+                        qMetadata.contact && qMetadata.contact.length > 0 ? qMetadata.contact[0].name : ''
+                    }
+                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.contact, [{ name: e.target.value }])}
+                />
+            </FormField>
+            <FormField label={t('URL')} isOptional>
+                <input
+                    defaultValue={state.qMetadata.url || ''}
+                    placeholder={t('Enter a URL..')}
+                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.url, e.target.value || '')}
+                    pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                />
+            </FormField>
+            <FormField label={t('Purpose')} isOptional>
+                <MarkdownEditor
+                    data={qMetadata.purpose || ''}
+                    onBlur={(purpose: string) => updateMeta(IQuestionnaireMetadataType.purpose, purpose)}
+                />
+            </FormField>
+            <FormField label={t('Copyright')} isOptional>
+                <MarkdownEditor
+                    data={qMetadata.copyright || ''}
+                    onBlur={(copyright: string) => updateMeta(IQuestionnaireMetadataType.copyright, copyright)}
+                />
+            </FormField>
         </div>
     );
 };

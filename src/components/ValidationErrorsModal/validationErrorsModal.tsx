@@ -22,7 +22,7 @@ export const ValidationErrorsModal = (props: ValidationErrorsModalProps): JSX.El
                     )}
                 </div>
             ) : (
-                <div>{t('Found no validation errors!')}</div>
+                <div>{t('FHIR validation completed and no errors were found!')}</div>
             )}
             {props.translationErrors.length > 0 ? (
                 <div className="msg-error" style={{ paddingTop: '10px' }}>

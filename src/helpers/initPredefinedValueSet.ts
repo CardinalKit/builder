@@ -1,6 +1,6 @@
 import { ValueSet } from '../types/fhir';
 
-export const predefinedValueSetUri = 'http://ehelse.no/fhir/ValueSet/Predefined';
+export const predefinedValueSetUri = 'http://cardinalkit.org/fhir/ValueSet/Predefined';
 
 export const initPredefinedValueSet = [
     {
@@ -9,7 +9,7 @@ export const initPredefinedValueSet = [
         id: '1101',
         version: '1.0',
         name: 'urn:oid:1101',
-        title: 'Ja / Nei (structor)',
+        title: 'Yes / No',
         status: 'draft',
         publisher: 'NHN',
         compose: {
@@ -19,11 +19,11 @@ export const initPredefinedValueSet = [
                     concept: [
                         {
                             code: '1',
-                            display: 'Ja',
+                            display: 'Yes',
                         },
                         {
                             code: '2',
-                            display: 'Nei',
+                            display: 'No',
                         },
                     ],
                 },
@@ -36,9 +36,9 @@ export const initPredefinedValueSet = [
         id: '1102',
         version: '1.0',
         name: 'urn:oid:1102',
-        title: 'Ja / Nei / Vet ikke (structor)',
+        title: 'Yes / No / Do not know',
         status: 'draft',
-        publisher: 'Direktoratet for e-helse',
+        publisher: 'CardinalKit',
         compose: {
             include: [
                 {
@@ -46,15 +46,15 @@ export const initPredefinedValueSet = [
                     concept: [
                         {
                             code: '1',
-                            display: 'Ja',
+                            display: 'Yes',
                         },
                         {
                             code: '2',
-                            display: 'Nei',
+                            display: 'No',
                         },
                         {
                             code: '3',
-                            display: 'Vet ikke',
+                            display: 'Do not know',
                         },
                     ],
                 },
@@ -67,9 +67,9 @@ export const initPredefinedValueSet = [
         id: '9523',
         version: '1.0',
         name: 'urn:oid:9523',
-        title: 'Ja / Nei / Usikker (structor)',
+        title: 'Yes / No / Unsure',
         status: 'draft',
-        publisher: 'Direktoratet for e-helse',
+        publisher: 'CardinalKit',
         compose: {
             include: [
                 {
@@ -77,15 +77,15 @@ export const initPredefinedValueSet = [
                     concept: [
                         {
                             code: '1',
-                            display: 'Ja',
+                            display: 'Yes',
                         },
                         {
                             code: '2',
-                            display: 'Nei',
+                            display: 'No',
                         },
                         {
                             code: '3',
-                            display: 'Usikker',
+                            display: 'Unsure',
                         },
                     ],
                 },
