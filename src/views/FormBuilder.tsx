@@ -71,7 +71,7 @@ const FormBuilder = (): JSX.Element => {
                 </div>
                 {(showFormDetails) &&
                     <Modal size={'large'}
-                        title={'Survey Details'}
+                        title={'Survey Metadata'}
                         close={toggleFormDetails}
                         bottomCloseText={'Save'}
                         bottomButtonAlignment={'right-text'}>

@@ -69,12 +69,12 @@
 
 .anchor-menu__dragcomponent {
     padding: 10px 16px;
-    background: #006CB9;
-    margin: 5px;
-    text-align: left;
+    background: #ad8883;
+    margin: 8px;
+    text-align: center;
     color: white;
     border: 1px solid #cae7ed;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: grab;
 }
 .anchor-menu__dragcomponent:active {

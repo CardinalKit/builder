@@ -125,6 +125,18 @@ const Navbar = ({
                         </p>
                     )}
                     <Btn title={t('Edit Metadata')} onClick={() => toggleFormDetails()} />
+                    <Btn
+                            title={t('Validate')}
+                            onClick={() => {
+                                setValidationErrors(
+                                    validateOrphanedElements(t, state.qOrder, state.qItems, state.qContained || []),
+                                );
+                                setTranslationErrors(
+                                    validateTranslations(t, state.qOrder, state.qItems, state.qAdditionalLanguages),
+                                );
+                                setShowValidationErrors(true);
+                            }}
+                        />
                     <Btn title={t('Preview')} onClick={() => {
                         // validate the FHIR and then show the JSON
                         setValidationErrors(

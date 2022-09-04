@@ -64,15 +64,15 @@ const FrontPage = (): JSX.Element => {
     return (
         <>
             {suggestRestore && (
-                <Modal title={t('Restore survey...')} close={onDenyRestoreModal} size={'small'}>
+                <Modal title={t('Continue working?')} close={onDenyRestoreModal} size={'small'}>
                     <div>
-                        <p>{t('It looks like you were working on a survey:')}</p>
+                        <p>{t('It appears you were working on a survey:')}</p>
                         <div className="key-value">
                             <div>{t('Title')}</div>
                             <div>{stateFromStorage?.qMetadata.title}</div>
                         </div>
                         <div className="key-value">
-                            <div>{t('Technical name')}</div>
+                            <div>{t('Name')}</div>
                             <div>{stateFromStorage?.qMetadata.name}</div>
                         </div>
                         <div className="key-value">
@@ -105,8 +105,7 @@ const FrontPage = (): JSX.Element => {
                         <h1 className="form-title-frontpage">{`CardinalKit Survey Builder`}</h1>
                     </header>
                     <div className="frontpage">
-                        
-                        <img src={cardinalkitSpaceman} alt="CardinalKit Spaceman" width="200" />
+                        <img src={cardinalkitSpaceman} alt="CardinalKit Spaceman" width="200" className="spaceman" />
                         <h2>{`Easily build an HL7® FHIR® survey for your CardinalKit iOS & Android applications!`}</h2>
                         <div className="frontpage__infotext">
                             {t('You can start a new survey, or upload and continue to work on an existing one.')}

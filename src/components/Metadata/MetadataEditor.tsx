@@ -66,6 +66,15 @@ const MetadataEditor = (): JSX.Element => {
                 )}
             </FormField>
 
+            <FormField label={t('URL')}>
+                <input
+                    defaultValue={state.qMetadata.url || ''}
+                    placeholder={t('A unique URL to identify this survey')}
+                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.url, e.target.value || '')}
+                    pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                />
+            </FormField>
+
             <FormField label={`${t('Title')}`}>
                 <input
                     placeholder={t('A human friendly name for this survey')}
@@ -106,7 +115,7 @@ const MetadataEditor = (): JSX.Element => {
                 />
             </FormField>
 
-            <FormField label={t('Version')}>
+            <FormField label={t('Version')} isOptional>
                 <InputField
                     placeholder={t('Version number')}
                     defaultValue={qMetadata.version}
@@ -116,7 +125,7 @@ const MetadataEditor = (): JSX.Element => {
                 />
             </FormField>
 
-            <FormField label={t('Date')}>
+            <FormField label={t('Date')} isOptional>
                 <DatePicker
                     type="date"
                     selected={qMetadata.date ? parseISO(qMetadata.date) : undefined}
@@ -136,7 +145,7 @@ const MetadataEditor = (): JSX.Element => {
                     name={'status-radio'}
                 />
             </FormField>
-            <FormField label={t('Publisher')}>
+            <FormField label={t('Publisher')} isOptional>
                 <InputField
                     defaultValue={qMetadata.publisher || ''}
                     onBlur={(e) => updateMeta(IQuestionnaireMetadataType.publisher, e.target.value)}
@@ -148,14 +157,6 @@ const MetadataEditor = (): JSX.Element => {
                         qMetadata.contact && qMetadata.contact.length > 0 ? qMetadata.contact[0].name : ''
                     }
                     onBlur={(e) => updateMeta(IQuestionnaireMetadataType.contact, [{ name: e.target.value }])}
-                />
-            </FormField>
-            <FormField label={t('URL')} isOptional>
-                <input
-                    defaultValue={state.qMetadata.url || ''}
-                    placeholder={t('Enter a URL..')}
-                    onBlur={(e) => updateMeta(IQuestionnaireMetadataType.url, e.target.value || '')}
-                    pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
                 />
             </FormField>
             <FormField label={t('Purpose')} isOptional>
