@@ -2,7 +2,6 @@ import { useContext, useRef, useState } from 'react';
 import { generateQuestionnaire } from '../../helpers/generateQuestionnaire';
 import { Languages, TreeContext } from '../../store/treeStore/treeStore';
 import Btn from '../Btn/Btn';
-import MoreIcon from '../../images/icons/ellipsis-horizontal-outline.svg';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import './Navbar.css';
 import JSONView from '../JSONView/JSONView';
@@ -12,6 +11,7 @@ import { saveAction } from '../../store/treeStore/treeActions';
 import { validateOrphanedElements, validateTranslations, ValidationErrors } from '../../helpers/orphanValidation';
 import { ValidationErrorsModal } from '../ValidationErrorsModal/validationErrorsModal';
 import { useTranslation } from 'react-i18next';
+import IconBtn from '../IconBtn/IconBtn';
 
 type Props = {
     showFormFiller: () => void;
@@ -114,7 +114,7 @@ const Navbar = ({
         <>
             <header ref={navBarRef}>
                 <div className="pull-left form-title">
-                    <h1 onClick={() => {close()}}>CardinalKit Survey Builder</h1>
+                    <h1><IconBtn type="x" title={t('Close')} onClick={() => {close()}} />CardinalKit Survey Builder</h1>
                 </div>
 
                 <div className="pull-right">

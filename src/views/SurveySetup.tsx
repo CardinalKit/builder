@@ -7,11 +7,13 @@ import FormField from '../components/FormField/FormField';
 import { IQuestionnaireMetadataType } from '../types/IQuestionnaireMetadataType';
 import { updateQuestionnaireMetadataAction } from '../store/treeStore/treeActions';
 import './SurveySetup.css'
+import { IQuestionnaireItemType } from '../types/IQuestionnareItemType';
 
 const SurveySetup = () => {
 
     const { t } = useTranslation();
     const { state, dispatch } = useContext(TreeContext);
+    const [title, setTitle] = useState(state.qMetadata.title || '')
     const [url, setURL] = useState(state.qMetadata.url || createUrlUUID());
 
     const updateMeta = (
@@ -27,26 +29,35 @@ const SurveySetup = () => {
                 New Survey Setup
             </p>
             <div className="metadata-input">
-            <p><strong>Enter a unique URL that will be used as an identifier for this survey in your app.</strong>
-                <br /><br />
-                (It's OK if this is not a real address on the web.)</p>
-            <FormField>
-                <input
-                    style={{ color: 'black' }}
-                    defaultValue={url}
-                    placeholder={t('Enter a unique URL for your survey here')}
-                    onBlur={(e) => setURL(e.target.value)}
-                    pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                <p>Enter a title and a unique URL to identify your survey. It's OK if the URL isn't a real address on the web.
+                    <br /><br />
+                    These values can be changed later on by clicking <strong>Edit Metadata</strong> in the toolbar.</p>
+                <FormField label={'Title'}>
+                    <input
+                        style={{ color: 'black' }}
+                        defaultValue={title}
+                        placeholder={t('A title that will be shown to users')}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </FormField>
+                <FormField label={'Unique URL'}>
+                    <input
+                        style={{ color: 'black' }}
+                        defaultValue={url}
+                        placeholder={t('Unique URL')}
+                        onChange={(e) => setURL(e.target.value)}
+                        pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                    />
+                </FormField>
+                <br />
+                <Btn
+                    onClick={() => {
+                        updateMeta(IQuestionnaireMetadataType.url, url);
+                        updateMeta(IQuestionnaireMetadataType.title, title)
+                    }}
+                    title={t('Save and Continue')}
+                    variant="primary"
                 />
-            </FormField>
-            <br />
-            <Btn
-                onClick={() => {
-                    updateMeta(IQuestionnaireMetadataType.url, url);
-                }}
-                title={t('Save and Continue')}
-                variant="primary"
-            />
             </div>
         </div>
     )
