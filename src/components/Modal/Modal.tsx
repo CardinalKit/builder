@@ -27,7 +27,7 @@ const Modal = ({ close, children, title, size = 'small', id, bottomCloseText, bo
                 {bottomCloseText && (
                     <div className="modal-btn-bottom">
                         <div className={bottomButtonAlignment} style={{paddingRight: 10}}>
-                            <Btn title={bottomCloseText} type="button" variant="secondary" onClick={close} />
+                            <Btn title={bottomCloseText} type="button" variant="primary" onClick={close} />
                         </div>
                     </div>
                 )}

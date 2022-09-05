@@ -98,7 +98,9 @@ const FrontPage = (): JSX.Element => {
                 </Modal>
             )}
             {isFormBuilderShown ? (
-                <FormBuilder />
+                <FormBuilder close={() => {
+                    setIsFormBuilderShown(false);
+                }} />
             ) : (
                 <>
                     <header>
@@ -138,7 +140,7 @@ const FrontPage = (): JSX.Element => {
             )}
             <footer className="footer">
                 <p className="footer-text">
-                    A project of the <a href="https://cardinalkit.stanford.edu">CardinalKit</a> team at Stanford University.
+                    An <a href="https://github.com/cardinalkit/builder">open-source project</a> of the <a href="https://cardinalkit.stanford.edu">CardinalKit</a> team at Stanford University.
                 </p>
             </footer>
         </>

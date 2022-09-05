@@ -71,9 +71,31 @@ const externalNodeCollect = (connect: DragSourceConnector) => ({
 });
 
 const ExternalNodeBaseComponent = (props: { connectDragSource: ConnectDragSource; node: Node }): JSX.Element | null => {
+
+    const getRelevantIcon = (type?: string) => {
+        switch (type) {
+            case IQuestionnaireItemType.group:
+                return 'ion-folder';
+            case IQuestionnaireItemType.display:
+                return 'ion-information-circled';
+            case IQuestionnaireItemType.date:
+                return 'ion-calendar';
+            case IQuestionnaireItemType.string:
+                return 'ion-edit';
+            case IQuestionnaireItemType.integer:
+            case IQuestionnaireItemType.decimal:
+            case IQuestionnaireItemType.quantity:
+                return 'ion-calculator';
+            case IQuestionnaireItemType.choice:
+                return 'ion-ios-list'
+            default:
+                return 'ion-help-circled';
+        }
+    };
+
     return props.connectDragSource (
     <div className="anchor-menu__dragcomponent">
-        {props.node.nodeReadableType}
+       <i className={getRelevantIcon(props.node.nodeType)} /> &nbsp; {props.node.nodeReadableType}
     </div>, 
     {
         dropEffect: 'copy',
@@ -89,6 +111,7 @@ const YourExternalNodeComponent = DragSource(
 const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
     const { t } = useTranslation();
     const [collapsedNodes, setCollapsedNodes] = React.useState<string[]>([]);
+    
 
     const mapToTreeData = (item: OrderItem[], hierarchy: string, parentLinkId?: string): Node[] => {
         return item
@@ -156,12 +179,10 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                 <div className="questionnaire-overview__toolbox">
                     {createTypeComponent(IQuestionnaireItemType.boolean, t('Boolean'))}
                     {createTypeComponent(IQuestionnaireItemType.date, t('Date'))}
-                    {createTypeComponent(IQuestionnaireItemType.decimal, t('Decimal'))}
                     {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
-                    {createTypeComponent(IQuestionnaireItemType.integer, t('Integer'))}
+                    {createTypeComponent(IQuestionnaireItemType.integer, t('Number'))}
                     {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
                     {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
-                    {createTypeComponent(IQuestionnaireItemType.quantity, t('Quantity'))}
                     {createTypeComponent(IQuestionnaireItemType.string, t('Text'))}
                 </div>
                 <SortableTree
@@ -245,7 +266,10 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                 />
                 {props.qOrder.length === 0 && (
                     <div className="anchor-menu__placeholder">
-                        {t('Drag a question type here to start building your survey.')}
+                        <div className="anchor-menu__info">
+                            <i className="ion-android-hand" /> &nbsp;
+                            {'Drag a question type here to start building your survey!'}    
+                        </div>
                     </div>
                 )}
             </div>

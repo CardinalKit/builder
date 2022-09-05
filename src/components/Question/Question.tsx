@@ -94,10 +94,12 @@ const Question = (props: QuestionProps): JSX.Element => {
         dispatchUpdateItem(IItemProperty.text, convertToPlaintext(newLabel));
     };
 
+    const isNumber = props.item.type === IQuestionnaireItemType.decimal || props.item.type === IQuestionnaireItemType.integer || props.item.type === IQuestionnaireItemType.quantity;
+    const isDecimal = props.item.type === IQuestionnaireItemType.decimal;
+    const isQuantity = props.item.type === IQuestionnaireItemType.quantity;
+    const isDecimalOrQuantity = isDecimal || isQuantity;
+
     const respondType = (): JSX.Element => {
-        if (isItemControlReceiverComponent(props.item)) {
-            return <div>{t('Recipient component is configured in Helsenorge admin')}</div>;
-        }
         if (
             isItemControlInline(props.item) ||
             isItemControlHighlight(props.item) ||
@@ -175,6 +177,37 @@ const Question = (props: QuestionProps): JSX.Element => {
                             />
                         </FormField>
                     )}
+                    {(isNumber) && (
+                        <FormField>
+                            <SwitchBtn label={t('Allow decimals')} value={isDecimalOrQuantity} onChange={() => {
+                                const newItemType = isDecimal || isQuantity
+                                        ? IQuestionnaireItemType.integer
+                                        : IQuestionnaireItemType.decimal;
+                                dispatchUpdateItem(IItemProperty.type, newItemType)
+
+                                // remove max decimal places extension if toggling off
+                                if (newItemType === IQuestionnaireItemType.integer) {
+                                    removeItemExtension(props.item, IExtentionType.maxDecimalPlaces, props.dispatch);
+                                }
+                            }} />
+                        </FormField>
+                    )}
+                    {(isDecimalOrQuantity) && (
+                        <FormField>
+                            <SwitchBtn label={t('Allow units')} value={isQuantity} onChange={() => {
+                                const newItemType =
+                                    isDecimal
+                                    ? IQuestionnaireItemType.quantity
+                                    : IQuestionnaireItemType.decimal;
+                            dispatchUpdateItem(IItemProperty.type, newItemType)
+
+                            // remove unit extension if toggling off
+                            if (newItemType === IQuestionnaireItemType.decimal) {
+                                removeItemExtension(props.item, IExtentionType.questionnaireUnit, props.dispatch);
+                            }
+                        }} />
+                    </FormField>
+                    )}
                 </div>
                 <FormField label={t('Text')}>
                     {isMarkdownActivated ? (
@@ -188,6 +221,7 @@ const Question = (props: QuestionProps): JSX.Element => {
                         />
                     )}
                 </FormField>
+                {/* Sublabel is not currently supported 
                 {canTypeHaveSublabel(props.item) && (
                     <FormField label={t('Sublabel')} isOptional>
                         <MarkdownEditor
@@ -205,7 +239,7 @@ const Question = (props: QuestionProps): JSX.Element => {
                             }}
                         />
                     </FormField>
-                )}
+                )} */}
                 {respondType()}
             </div>
             <div className="question-addons">
@@ -227,9 +261,9 @@ const Question = (props: QuestionProps): JSX.Element => {
                 <Accordion title={`${t('Code')} ${codeElements}`}>
                     <Codes linkId={props.item.linkId} itemValidationErrors={props.itemValidationErrors} />
                 </Accordion>
-                {/* disabled  <Accordion title={t('Advanced settings')}>
+                <Accordion title={t('Advanced Options')}>
                     <AdvancedQuestionOptions item={props.item} parentArray={props.parentArray} />
-                </Accordion> */}
+                </Accordion>
             </div>
         </div>
     );

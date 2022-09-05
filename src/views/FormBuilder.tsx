@@ -9,16 +9,21 @@ import './FormBuilder.css';
 import { ValidationErrors } from '../helpers/orphanValidation';
 import TranslationModal from '../components/Languages/Translation/TranslationModal';
 import MetadataEditor from '../components/Metadata/MetadataEditor';
+import SurveySetup from './SurveySetup'
 
-const FormBuilder = (): JSX.Element => {
+type FormBuilderProps = {
+    close: () => void
+}
+
+const FormBuilder = (props: FormBuilderProps): JSX.Element => {
     const { t } = useTranslation();
     const { state, dispatch } = useContext(TreeContext);
     const [showFormDetails, setShowFormDetails] = useState(false);
-
     const [showPreview, setShowPreview] = useState(false);
     const [validationErrors, setValidationErrors] = useState<Array<ValidationErrors>>([]);
     const [translationErrors, setTranslationErrors] = useState<Array<ValidationErrors>>([]);
     const [translateLang, setTranslateLang] = useState('');
+
 
     const toggleFormDetails = useCallback(() => {
         setShowFormDetails(!showFormDetails);
@@ -33,8 +38,10 @@ const FormBuilder = (): JSX.Element => {
                 translationErrors={translationErrors}
                 setTranslationErrors={setTranslationErrors}
                 toggleFormDetails={toggleFormDetails}
+                close={props.close}
             />
             <div className="editor">
+                { state.qMetadata.url && state.qMetadata.title ? (
                 <AnchorMenu
                     dispatch={dispatch}
                     qOrder={state.qOrder}
@@ -42,6 +49,9 @@ const FormBuilder = (): JSX.Element => {
                     qCurrentItem={state.qCurrentItem}
                     validationErrors={validationErrors}
                 />
+                ) : (
+                    <SurveySetup />
+                )}
                 {translateLang && (
                     <TranslationModal close={() => setTranslateLang('')} targetLanguage={translateLang} />
                 )}
