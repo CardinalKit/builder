@@ -19,7 +19,7 @@ const Modal = ({ close, children, title, size = 'small', id, bottomCloseText, bo
     return (
         <div className="overlay align-everything">
             <div className={`modal ${size}`} id={id}>
-                <div className="title">
+                <div className="title sticky">
                     <IconBtn type="x" title={t('Close')} onClick={close} />
                     <h1>{title}</h1>
                 </div>

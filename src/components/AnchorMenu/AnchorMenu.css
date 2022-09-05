@@ -69,16 +69,22 @@
 
 .anchor-menu__dragcomponent {
     padding: 15px;
-    background: #ad8883;
+    background: #4f7894;
     margin: 10px;
     text-align: center;
     color: white;
     border-radius: 8px;
     cursor: grab;
 }
+
+.anchor-menu__dragcomponent:hover {
+    background: #8C1515;
+    transition-duration: 0.2s;
+}
+
 .anchor-menu__dragcomponent:active {
     cursor: grabbing;
-    background: #8C1515;
+    background: #E50808;
 }
 
 .folder-icon {

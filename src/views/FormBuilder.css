@@ -98,3 +98,9 @@ select {
     left: 0;
     top: 80px;
 }
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
