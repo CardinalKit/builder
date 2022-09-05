@@ -18,7 +18,7 @@
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     padding: 8px 12px;
-    border-radius: 24px;
+    border-radius: 15px;
     color: white;
     background: none;
     border: 1px solid transparent;
@@ -39,7 +39,7 @@
 }
 
 .regular-btn.primary {
-    background: #2a69ac;
+    background: #ae2f2a;
     color: white;
 }
 
@@ -48,8 +48,8 @@
 }
 
 .regular-btn.secondary {
-    border: 3px solid #2a69ac;
-    color: #2a69ac;
+    background: #775653;
+    color: #FFFFFF;
 }
 
 .btn-group button {

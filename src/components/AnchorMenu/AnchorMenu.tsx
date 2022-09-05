@@ -18,7 +18,6 @@ import '@nosferatu500/react-sortable-tree/style.css';
 import { isIgnorableItem } from '../../helpers/itemControl';
 import { generateItemButtons } from './ItemButtons/ItemButtons';
 import { canTypeHaveChildren, getInitialItemConfig } from '../../helpers/questionTypeFeatures';
-import cardinalkitSpaceman from '../../images/cardinalkit-spaceman.png';
 
 interface AnchorMenuProps {
     qOrder: OrderItem[];
@@ -72,7 +71,11 @@ const externalNodeCollect = (connect: DragSourceConnector) => ({
 });
 
 const ExternalNodeBaseComponent = (props: { connectDragSource: ConnectDragSource; node: Node }): JSX.Element | null => {
-    return props.connectDragSource(<div className="anchor-menu__dragcomponent">{props.node.nodeReadableType}</div>, {
+    return props.connectDragSource (
+    <div className="anchor-menu__dragcomponent">
+        {props.node.nodeReadableType}
+    </div>, 
+    {
         dropEffect: 'copy',
     });
 };
@@ -242,8 +245,7 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                 />
                 {props.qOrder.length === 0 && (
                     <div className="anchor-menu__placeholder">
-                        <h2 style={{ color: 'black', paddingTop: 10 }}>{t('Drag a question type here to start building your survey!')}</h2>
-                        <img src={cardinalkitSpaceman} width={150} style={{paddingTop: 100}} />
+                        {t('Drag a question type here to start building your survey.')}
                     </div>
                 )}
             </div>

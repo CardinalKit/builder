@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { generateQuestionnaire } from '../../helpers/generateQuestionnaire';
 import { Languages, TreeContext } from '../../store/treeStore/treeStore';
 import Btn from '../Btn/Btn';
@@ -125,6 +125,18 @@ const Navbar = ({
                         </p>
                     )}
                     <Btn title={t('Edit Metadata')} onClick={() => toggleFormDetails()} />
+                    <Btn
+                            title={t('Validate')}
+                            onClick={() => {
+                                setValidationErrors(
+                                    validateOrphanedElements(t, state.qOrder, state.qItems, state.qContained || []),
+                                );
+                                setTranslationErrors(
+                                    validateTranslations(t, state.qOrder, state.qItems, state.qAdditionalLanguages),
+                                );
+                                setShowValidationErrors(true);
+                            }}
+                        />
                     <Btn title={t('Preview')} onClick={() => {
                         // validate the FHIR and then show the JSON
                         setValidationErrors(
