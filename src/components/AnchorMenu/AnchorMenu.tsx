@@ -111,6 +111,7 @@ const YourExternalNodeComponent = DragSource(
 const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
     const { t } = useTranslation();
     const [collapsedNodes, setCollapsedNodes] = React.useState<string[]>([]);
+    
 
     const mapToTreeData = (item: OrderItem[], hierarchy: string, parentLinkId?: string): Node[] => {
         return item
@@ -265,7 +266,10 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                 />
                 {props.qOrder.length === 0 && (
                     <div className="anchor-menu__placeholder">
-                        {t('Drag a question type here to start building your survey.')}
+                        <div className="anchor-menu__info">
+                            <i className="ion-android-hand" /> &nbsp;
+                            {'Drag a question type here to start building your survey!'}    
+                        </div>
                     </div>
                 )}
             </div>

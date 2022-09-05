@@ -65,6 +65,17 @@
 .anchor-menu__title {
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: large
+}
+
+.anchor-menu__info {
+    margin: auto;
+    padding: 20px;
+    width: 75%;
+    background: #f09964;
+    border-radius: 15px;
+    color: #FFF;
+    font-weight:500
 }
 
 .anchor-menu__dragcomponent {
@@ -84,7 +95,7 @@
 
 .anchor-menu__dragcomponent:active {
     cursor: grabbing;
-    background: #E50808;
+    background: #8C1515;
 }
 
 .folder-icon {
