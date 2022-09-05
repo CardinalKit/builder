@@ -160,7 +160,6 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                     {createTypeComponent(IQuestionnaireItemType.integer, t('Number'))}
                     {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
                     {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
-                    {createTypeComponent(IQuestionnaireItemType.quantity, t('Quantity'))}
                     {createTypeComponent(IQuestionnaireItemType.string, t('Text'))}
                 </div>
                 <SortableTree
