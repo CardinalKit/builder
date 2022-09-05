@@ -71,9 +71,31 @@ const externalNodeCollect = (connect: DragSourceConnector) => ({
 });
 
 const ExternalNodeBaseComponent = (props: { connectDragSource: ConnectDragSource; node: Node }): JSX.Element | null => {
+
+    const getRelevantIcon = (type?: string) => {
+        switch (type) {
+            case IQuestionnaireItemType.group:
+                return 'ion-folder';
+            case IQuestionnaireItemType.display:
+                return 'ion-information-circled';
+            case IQuestionnaireItemType.date:
+                return 'ion-calendar';
+            case IQuestionnaireItemType.string:
+                return 'ion-edit';
+            case IQuestionnaireItemType.integer:
+            case IQuestionnaireItemType.decimal:
+            case IQuestionnaireItemType.quantity:
+                return 'ion-calculator';
+            case IQuestionnaireItemType.choice:
+                return 'ion-ios-list'
+            default:
+                return 'ion-help-circled';
+        }
+    };
+
     return props.connectDragSource (
     <div className="anchor-menu__dragcomponent">
-        {props.node.nodeReadableType}
+       <i className={getRelevantIcon(props.node.nodeType)} /> &nbsp; {props.node.nodeReadableType}
     </div>, 
     {
         dropEffect: 'copy',

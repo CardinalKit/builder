@@ -8,24 +8,19 @@ import {
     updateItemAction,
     updateLinkIdAction,
 } from '../../store/treeStore/treeActions';
-import HyperlinkTargetElementToggle from './HyperlinkTargetElementToggle';
 import UriField from '../FormField/UriField';
 import UndoIcon from '../../images/icons/arrow-undo-outline.svg';
 import './AdvancedQuestionOptions.css';
-import { IExtentionType, IItemProperty, IValueSetSystem } from '../../types/IQuestionnareItemType';
+import { IExtentionType, IItemProperty } from '../../types/IQuestionnareItemType';
 import SwitchBtn from '../SwitchBtn/SwitchBtn';
 import Initial from './Initial/Initial';
 import FormField from '../FormField/FormField';
 import MarkdownEditor from '../MarkdownEditor/MarkdownEditor';
 import { createItemControlExtension, getHelpText, isItemControlHelp, ItemControlType } from '../../helpers/itemControl';
-import GuidanceAction from './Guidance/GuidanceAction';
-import GuidanceParam from './Guidance/GuidanceParam';
-import FhirPathSelect from './FhirPathSelect/FhirPathSelect';
 import CalculatedExpression from './CalculatedExpression/CalculatedExpression';
 import { createMarkdownExtension, removeItemExtension, setItemExtension } from '../../helpers/extensionHelper';
 import InputField from '../InputField/inputField';
 import {
-    canTypeBeBeriket,
     canTypeBeReadonly,
     canTypeBeRepeatable,
     canTypeHaveCalculatedExpressionExtension,
@@ -35,8 +30,6 @@ import {
     canTypeHavePrefix,
     canTypeHaveSummary,
 } from '../../helpers/questionTypeFeatures';
-import RadioBtn from '../RadioBtn/RadioBtn';
-import { elementSaveCapability } from '../../helpers/QuestionHelper';
 
 type AdvancedQuestionOptionsProps = {
     item: QuestionnaireItem;
@@ -227,11 +220,9 @@ const AdvancedQuestionOptions = ({ item, parentArray }: AdvancedQuestionOptionsP
                     )}
                 </FormField>
             )}
-            <HyperlinkTargetElementToggle item={item} />
             {canTypeHaveCalculatedExpressionExtension(item) && (
                 <CalculatedExpression item={item} updateExtension={handleExtension} removeExtension={removeExtension} />
             )}
-            {canTypeBeBeriket(item) && <FhirPathSelect item={item} />}
             {canTypeHavePlaceholderText(item) && (
                 <FormField label={t('Placeholder text')}>
                     <InputField
@@ -334,32 +325,6 @@ const AdvancedQuestionOptions = ({ item, parentArray }: AdvancedQuestionOptionsP
                     />
                 </FormField>
             )}
-            <FormField label={t('Save capabilities')}>
-                <RadioBtn
-                    onChange={(newValue: string) => {
-                        if (newValue === '0') {
-                            removeExtension(IExtentionType.saveCapability);
-                        } else {
-                            setItemExtension(
-                                item,
-                                {
-                                    url: IExtentionType.saveCapability,
-                                    valueCoding: {
-                                        system: IValueSetSystem.saveCapabilityValueSet,
-                                        code: newValue,
-                                    },
-                                },
-                                dispatch,
-                            );
-                        }
-                    }}
-                    checked={
-                        item.extension?.find((ex) => ex.url === IExtentionType.saveCapability)?.valueCoding?.code ?? '0'
-                    }
-                    options={elementSaveCapability}
-                    name={'elementSaveCapability-radio'}
-                />
-            </FormField>
         </>
     );
 };

@@ -74,7 +74,8 @@ const Choice = ({ item }: Props): JSX.Element => {
 
     return (
         <>
-            <ChoiceTypeSelect item={item} dispatchExtentionUpdate={dispatchExtentionUpdate} />
+            {/* 
+            NOTE: CK does not yet support 'open-choice' questions
             <FormField>
                 <SwitchBtn
                     onChange={() => {
@@ -87,7 +88,8 @@ const Choice = ({ item }: Props): JSX.Element => {
                     value={item.type === IQuestionnaireItemType.openChoice}
                     label={t('Allow free-text answer')}
                 />
-            </FormField>
+            </FormField> 
+            */}
             <FormField>
                 <SwitchBtn
                     onChange={() => {
