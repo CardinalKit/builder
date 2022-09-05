@@ -68,17 +68,17 @@
 }
 
 .anchor-menu__dragcomponent {
-    padding: 10px 16px;
+    padding: 15px;
     background: #ad8883;
-    margin: 8px;
+    margin: 10px;
     text-align: center;
     color: white;
-    border: 1px solid #cae7ed;
     border-radius: 8px;
     cursor: grab;
 }
 .anchor-menu__dragcomponent:active {
     cursor: grabbing;
+    background: #8C1515;
 }
 
 .folder-icon {

@@ -106,9 +106,9 @@ const FrontPage = (): JSX.Element => {
                     </header>
                     <div className="frontpage">
                         <img src={cardinalkitSpaceman} alt="CardinalKit Spaceman" width="200" className="spaceman" />
-                        <h2>{`Easily build an HL7® FHIR® survey for your CardinalKit iOS & Android applications!`}</h2>
+                        <h2>{`Easily build a healthcare survey using HL7® FHIR®!`}</h2>
                         <div className="frontpage__infotext">
-                            {t('You can start a new survey, or upload and continue to work on an existing one.')}
+                            {t('You can start a new survey, or upload and continue to work on one you\'ve already started.')}
                         </div>
                         <input
                             type="file"
@@ -136,6 +136,11 @@ const FrontPage = (): JSX.Element => {
                     </div>
                 </>
             )}
+            <footer className="footer">
+                <p className="footer-text">
+                    A project of the <a href="https://cardinalkit.stanford.edu">CardinalKit</a> team at Stanford University.
+                </p>
+            </footer>
         </>
     );
 };

@@ -15,3 +15,22 @@
     font-weight: 600;
     width: 120px;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #998e8d;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.footer p {
+    text-align: center;
+}
+
+.footer a {
+    color: white;
+}
