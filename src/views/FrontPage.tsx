@@ -98,7 +98,9 @@ const FrontPage = (): JSX.Element => {
                 </Modal>
             )}
             {isFormBuilderShown ? (
-                <FormBuilder />
+                <FormBuilder close={() => {
+                    setIsFormBuilderShown(false);
+                }} />
             ) : (
                 <>
                     <header>

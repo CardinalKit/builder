@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatISO, parseISO } from 'date-fns';
 import {
     isValidId,
     isValidTechnicalName,
     questionnaireStatusOptions,
-    useContextSystem,
 } from '../../helpers/MetadataHelper';
-import Accordion from '../Accordion/Accordion';
 import DatePicker from '../DatePicker/DatePicker';
 import FormField from '../FormField/FormField';
 import { IQuestionnaireMetadataType } from '../../types/IQuestionnaireMetadataType';

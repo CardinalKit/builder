@@ -104,3 +104,22 @@ select {
     position: sticky;
     top: 0;
 }
+
+.metadata-message-container {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background: #d85c1f;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    padding: 50px;
+    border-radius: 15px;
+    color: #FFF;
+}
+
+.metadata-message-header {
+    font-size: x-large
+}
