@@ -57,6 +57,7 @@ const Question = (props: QuestionProps): JSX.Element => {
     const codeElements = props.item.code ? `(${props.item.code.length})` : '(0)';
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const removeMd = require('remove-markdown');
+    const isDecimal = props.item?.type === IQuestionnaireItemType.decimal || props.item?.type === IQuestionnaireItemType.quantity;
 
     const dispatchUpdateItem = (
         name: IItemProperty,
@@ -94,10 +95,9 @@ const Question = (props: QuestionProps): JSX.Element => {
         dispatchUpdateItem(IItemProperty.text, convertToPlaintext(newLabel));
     };
 
+    const isNumber = props.item.type === IQuestionnaireItemType.decimal || props.item.type === IQuestionnaireItemType.integer;
+
     const respondType = (): JSX.Element => {
-        if (isItemControlReceiverComponent(props.item)) {
-            return <div>{t('Recipient component is configured in Helsenorge admin')}</div>;
-        }
         if (
             isItemControlInline(props.item) ||
             isItemControlHighlight(props.item) ||
@@ -175,6 +175,17 @@ const Question = (props: QuestionProps): JSX.Element => {
                             />
                         </FormField>
                     )}
+                    {(isNumber) && (
+                        <FormField>
+                            <SwitchBtn label={t('Allow decimals')} value={isDecimal} onChange={() => {
+                                const newItemType =
+                                    props.item?.type === IQuestionnaireItemType.decimal
+                                        ? IQuestionnaireItemType.integer
+                                        : IQuestionnaireItemType.decimal;
+                                dispatchUpdateItem(IItemProperty.type, newItemType)
+                            }} />
+                        </FormField>
+                    )}
                 </div>
                 <FormField label={t('Text')}>
                     {isMarkdownActivated ? (
@@ -188,6 +199,7 @@ const Question = (props: QuestionProps): JSX.Element => {
                         />
                     )}
                 </FormField>
+                {/* Sublabel is not currently supported 
                 {canTypeHaveSublabel(props.item) && (
                     <FormField label={t('Sublabel')} isOptional>
                         <MarkdownEditor
@@ -205,7 +217,7 @@ const Question = (props: QuestionProps): JSX.Element => {
                             }}
                         />
                     </FormField>
-                )}
+                )} */}
                 {respondType()}
             </div>
             <div className="question-addons">
@@ -227,9 +239,9 @@ const Question = (props: QuestionProps): JSX.Element => {
                 <Accordion title={`${t('Code')} ${codeElements}`}>
                     <Codes linkId={props.item.linkId} itemValidationErrors={props.itemValidationErrors} />
                 </Accordion>
-                {/* disabled  <Accordion title={t('Advanced settings')}>
+                <Accordion title={t('Settings')}>
                     <AdvancedQuestionOptions item={props.item} parentArray={props.parentArray} />
-                </Accordion> */}
+                </Accordion>
             </div>
         </div>
     );

@@ -156,9 +156,8 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                 <div className="questionnaire-overview__toolbox">
                     {createTypeComponent(IQuestionnaireItemType.boolean, t('Boolean'))}
                     {createTypeComponent(IQuestionnaireItemType.date, t('Date'))}
-                    {createTypeComponent(IQuestionnaireItemType.decimal, t('Decimal'))}
                     {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
-                    {createTypeComponent(IQuestionnaireItemType.integer, t('Integer'))}
+                    {createTypeComponent(IQuestionnaireItemType.integer, t('Number'))}
                     {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
                     {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
                     {createTypeComponent(IQuestionnaireItemType.quantity, t('Quantity'))}

@@ -64,7 +64,7 @@ const EnableWhen = ({
 
     return (
         <div>
-            <p>{t('Set condition for display of element')}</p>
+            <p>{t('Set a condition for displaying this question:')}</p>
             {enableWhen.map((x, index) => {
                 const conditionItem = getItem(x.question);
                 const hasValidationError = itemValidationErrors.some(
@@ -124,14 +124,14 @@ const EnableWhen = ({
                                 )}
                                 {!!conditionItem && !isSupportedType(conditionItem.type) && (
                                     <p>
-                                        {`${t('The form builder does not support enableWhen of type:')} `}
+                                        {`${t('The survey builder does not support enableWhen of type:')} `}
                                         <strong>{conditionItem.type}</strong>
                                     </p>
                                 )}
                             </>
                         ) : (
                             <>
-                                <div>{t('This condition cannot be edited in the form builder:')}</div>
+                                <div>{t('This condition cannot be edited in the survey builder:')}</div>
                                 <div>{JSON.stringify(x, undefined, 2)}</div>
                             </>
                         )}
