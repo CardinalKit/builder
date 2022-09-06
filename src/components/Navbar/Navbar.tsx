@@ -21,6 +21,7 @@ type Props = {
     setTranslationErrors: (errors: ValidationErrors[]) => void;
     toggleFormDetails: () => void;
     close: () => void;
+    title: String | undefined;
 };
 
 enum MenuItem {
@@ -36,7 +37,8 @@ const Navbar = ({
     translationErrors,
     setTranslationErrors,
     toggleFormDetails,
-    close
+    close,
+    title
 }: Props): JSX.Element => {
     const { i18n, t } = useTranslation();
     const { state, dispatch } = useContext(TreeContext);
@@ -114,7 +116,7 @@ const Navbar = ({
         <>
             <header ref={navBarRef}>
                 <div className="pull-left form-title">
-                    <h1><IconBtn type="x" title={t('Close')} onClick={() => {close()}} />CardinalKit Survey Builder</h1>
+                    <h1><IconBtn type="x" title={t('Close')} onClick={() => {close()}} /><a className="survey-title-button" onClick={toggleFormDetails}>{title || 'CardinalKit Survey Builder'}</a></h1>
                 </div>
 
                 <div className="pull-right">

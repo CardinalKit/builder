@@ -53,3 +53,7 @@ header p {
 .profile-name {
     max-width: 160px;
 }
+
+.survey-title-button {
+    cursor: pointer
+}
