@@ -17,6 +17,7 @@ const FrontPage = (): JSX.Element => {
     const [stateFromStorage, setStateFromStorage] = useState<TreeState>();
     const [isLoading, setIsLoading] = useState(false);
     const [isFormBuilderShown, setIsFormBuilderShown] = useState<boolean>(false);
+    const [isDeletionAlertShown, setIsDeletionAlertShown] = useState<boolean>(false);
     const uploadRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -61,29 +62,39 @@ const FrontPage = (): JSX.Element => {
         setIsFormBuilderShown(true);
     };
 
+    const onConfirmDeleteSurvey = (): void => {
+        dispatch(resetQuestionnaireAction());
+        setIsFormBuilderShown(false);
+        setIsDeletionAlertShown(false);
+    }
+
+    const onDenyDeleteSurvey = (): void => {
+        setIsDeletionAlertShown(false);
+    }
+
     return (
         <>
             {suggestRestore && (
-                <Modal title={t('Continue working?')} close={onDenyRestoreModal} size={'small'}>
+                <Modal title={t('Restore Survey')} close={onDenyRestoreModal} size={'small'}>
                     <div>
-                        <p>{t('It appears you were working on a survey:')}</p>
-                        <div className="key-value">
-                            <div>{t('Title')}</div>
-                            <div>{stateFromStorage?.qMetadata.title}</div>
-                        </div>
-                        <div className="key-value">
-                            <div>{t('Name')}</div>
-                            <div>{stateFromStorage?.qMetadata.name}</div>
-                        </div>
-                        <div className="key-value">
-                            <div>{t('Version')}</div>
-                            <div>{stateFromStorage?.qMetadata.version}</div>
-                        </div>
-                        <p>{t('Do you want to continue working on it?')}</p>
+                        <p>{t('It looks like you were working on a survey called ')} <strong>{stateFromStorage?.qMetadata.title || 'Untitled'}</strong>. {t('Do you want to restore it?')}</p>
                         <div className="modal-btn-bottom">
                             <div className="center-text">
                                 <Btn title={t('Yes')} type="button" variant="primary" onClick={onConfirmRestoreModal} />{' '}
                                 <Btn title={t('No')} type="button" variant="secondary" onClick={onDenyRestoreModal} />
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            )}
+            {isDeletionAlertShown && (
+                <Modal title={t('Delete Survey')} close={onDenyDeleteSurvey} size={'small'}>
+                    <div>
+                        <p>The survey you are working on will be deleted. Do you want to continue?</p>
+                        <div className="modal-btn-bottom">
+                            <div className="center-text">
+                                <Btn title={t('Yes')} type="button" variant="primary" onClick={onConfirmDeleteSurvey} />{' '}
+                                <Btn title={t('No')} type="button" variant="secondary" onClick={onDenyDeleteSurvey} />
                             </div>
                         </div>
                     </div>
@@ -99,7 +110,7 @@ const FrontPage = (): JSX.Element => {
             )}
             {isFormBuilderShown ? (
                 <FormBuilder close={() => {
-                    setIsFormBuilderShown(false);
+                    setIsDeletionAlertShown(true);
                 }} />
             ) : (
                 <>

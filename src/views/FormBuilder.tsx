@@ -39,6 +39,7 @@ const FormBuilder = (props: FormBuilderProps): JSX.Element => {
                 setTranslationErrors={setTranslationErrors}
                 toggleFormDetails={toggleFormDetails}
                 close={props.close}
+                title={state.qMetadata.title}
             />
             <div className="editor">
                 { state.qMetadata.url && state.qMetadata.title ? (
