@@ -80,6 +80,8 @@ const ExternalNodeBaseComponent = (props: { connectDragSource: ConnectDragSource
                 return 'ion-information-circled';
             case IQuestionnaireItemType.date:
                 return 'ion-calendar';
+            case IQuestionnaireItemType.time:
+                return 'ion-clock';
             case IQuestionnaireItemType.string:
                 return 'ion-edit';
             case IQuestionnaireItemType.integer:
@@ -177,11 +179,12 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
         <DndProvider backend={HTML5Backend}>
             <div className="questionnaire-overview">
                 <div className="questionnaire-overview__toolbox">
+                    {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
+                    {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
                     {createTypeComponent(IQuestionnaireItemType.boolean, t('Boolean'))}
                     {createTypeComponent(IQuestionnaireItemType.date, t('Date'))}
-                    {createTypeComponent(IQuestionnaireItemType.group, t('Group'))}
+                    {createTypeComponent(IQuestionnaireItemType.time, t('Time'))}
                     {createTypeComponent(IQuestionnaireItemType.integer, t('Number'))}
-                    {createTypeComponent(IQuestionnaireItemType.display, t('Instruction'))}
                     {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
                     {createTypeComponent(IQuestionnaireItemType.string, t('Text'))}
                 </div>
