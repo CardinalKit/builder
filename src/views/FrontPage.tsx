@@ -10,6 +10,7 @@ import FormBuilder from './FormBuilder';
 import Btn from '../components/Btn/Btn';
 import './FrontPage.css';
 import cardinalkitSpaceman from '../images/cardinalkit-spaceman.png';
+import { isMobile } from "react-device-detect";
 
 const FrontPage = (): JSX.Element => {
     const { t } = useTranslation();
@@ -18,6 +19,7 @@ const FrontPage = (): JSX.Element => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFormBuilderShown, setIsFormBuilderShown] = useState<boolean>(false);
     const [isDeletionAlertShown, setIsDeletionAlertShown] = useState<boolean>(false);
+    const [isMobileModalShown, setIsMobileModalShown] = useState<boolean>(isMobile);
     const uploadRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -72,6 +74,10 @@ const FrontPage = (): JSX.Element => {
         setIsDeletionAlertShown(false);
     }
 
+    const onCloseMobileModal = (): void => {
+        setIsMobileModalShown(false);
+    }
+
     return (
         <>
             {suggestRestore && (
@@ -82,6 +88,18 @@ const FrontPage = (): JSX.Element => {
                             <div className="center-text">
                                 <Btn title={t('Yes')} type="button" variant="primary" onClick={onConfirmRestoreModal} />{' '}
                                 <Btn title={t('No')} type="button" variant="secondary" onClick={onDenyRestoreModal} />
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            )}
+            {isMobileModalShown && (
+                <Modal title={t('Warning')} close={onCloseMobileModal} size={'small'}>
+                    <div>
+                        <p>The CardinalKit survey builder works best on a large screen and may not appear properly on mobile devices.</p>
+                        <div className="modal-btn-bottom">
+                            <div className="center-text">
+                                <Btn title={t('Ok')} type="button" variant="primary" onClick={onCloseMobileModal} />
                             </div>
                         </div>
                     </div>
