@@ -96,7 +96,7 @@ const FrontPage = (): JSX.Element => {
             {isMobileModalShown && (
                 <Modal title={t('Warning')} close={onCloseMobileModal} size={'small'}>
                     <div>
-                        <p>The CardinalKit survey builder works best on a large screen and may not appear properly on 
+                        <p>The CardinalKit survey builder works best on a large screen and may not appear properly on
                             smaller devices.
                         </p>
                         <div className="modal-btn-bottom">
