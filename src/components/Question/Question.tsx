@@ -99,6 +99,18 @@ const Question = (props: QuestionProps): JSX.Element => {
     const isQuantity = props.item.type === IQuestionnaireItemType.quantity;
     const isDecimalOrQuantity = isDecimal || isQuantity;
 
+    // Adds instructions for the user
+    const instructionType = (): JSX.Element => {
+        if(props.item.type === IQuestionnaireItemType.attachment) {
+            return (
+                <p>
+                    <i>Note:</i> ResearchKitonFHIR maps the 'attachment' type to an <strong>ORKImageCaptureStep</strong> which allows the user to take a photo with the device camera.
+                </p>
+            );
+        }
+        return <></>;
+    }
+
     const respondType = (): JSX.Element => {
         if (
             isItemControlInline(props.item) ||
@@ -149,6 +161,9 @@ const Question = (props: QuestionProps): JSX.Element => {
         <div className="question" id={props.item.linkId}>
             <div className="question-form">
                 <h2 className="question-type-header">{t(getItemDisplayType(props.item))}</h2>
+                <div className="horizontal">
+                    {instructionType()}
+                </div>
                 <div className="horizontal">
                     {/*  <FormField>
                         Markdown not currently supported 

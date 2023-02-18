@@ -19,7 +19,7 @@ const FormField = ({ label, sublabel, isOptional, children }: Props): JSX.Elemen
                     {isOptional && <span className="form-field__optional">{` (${t('Optional')})`}</span>}
                 </label>
             )}
-            {sublabel && <div>{sublabel}</div>}
+            {sublabel && <div style={{textAlign: 'left'}}>{sublabel}</div>}
             {children}
         </div>
     );
