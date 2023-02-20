@@ -104,7 +104,7 @@ const Question = (props: QuestionProps): JSX.Element => {
         if(props.item.type === IQuestionnaireItemType.attachment) {
             return (
                 <p>
-                    <i>Note:</i> ResearchKitonFHIR maps the 'attachment' type to an <strong>ORKImageCaptureStep</strong> which allows the user to take a photo with the device camera.
+                    <i>Note:</i> <a href="https://github.com/StanfordBDHG/ResearchKitOnFHIR" target="_blank">ResearchKitOnFHIR</a> maps the 'attachment' type to an <strong>ORKImageCaptureStep</strong> which allows the user to take a photo with the device camera.
                 </p>
             );
         }

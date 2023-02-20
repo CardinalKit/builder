@@ -24,7 +24,7 @@ const ValidationAnswerTypeAttachment = ({ item }: ValidationAnswerTypeAttachment
         <>
         <FormField 
             label={t('Max file size in MB')}
-            sublabel={t('Note: File size validation is not currently supported by ResearchKitonFHIR.')}
+            sublabel={t('Note: File size validation is not currently supported by ResearchKitOnFHIR')}
         >
             <input
                 defaultValue={maxSize}
