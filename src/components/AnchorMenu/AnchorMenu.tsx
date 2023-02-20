@@ -89,7 +89,9 @@ const ExternalNodeBaseComponent = (props: { connectDragSource: ConnectDragSource
             case IQuestionnaireItemType.quantity:
                 return 'ion-calculator';
             case IQuestionnaireItemType.choice:
-                return 'ion-ios-list'
+                return 'ion-ios-list';
+            case IQuestionnaireItemType.attachment:
+                return 'ion-document';
             default:
                 return 'ion-help-circled';
         }
@@ -187,6 +189,7 @@ const AnchorMenu = (props: AnchorMenuProps): JSX.Element => {
                     {createTypeComponent(IQuestionnaireItemType.integer, t('Number'))}
                     {createTypeComponent(IQuestionnaireItemType.choice, t('Multiple Choice'))}
                     {createTypeComponent(IQuestionnaireItemType.string, t('Text'))}
+                    {createTypeComponent(IQuestionnaireItemType.attachment, t('Attachment'))}
                 </div>
                 <SortableTree
                     className="questionnaire-overview__treeview"
