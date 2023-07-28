@@ -5,6 +5,9 @@
 
 A React application that allows you to build healthcare surveys using the [HL7® FHIR® Questionnaire](https://www.hl7.org/fhir/questionnaire.html) internatinoal standard using an interactive, drag-and-drop interface, and export JSON to be used in CardinalKit iOS and Android applications to deliver surveys to patients.
 
+> [!IMPORTANT]  
+> The CardinalKit Survey Builder has moved to https://github.com/StanfordBDHG/Phoenix. The version in this repository is archived.
+
 ## Features
 - Drag and drop survey creation
 - Exports surveys as HL7® FHIR® Questionnaires
